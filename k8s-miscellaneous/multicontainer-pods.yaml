@@ -1,0 +1,41 @@
+# A pod is a virtual environment that creates a shared network and filesystem
+# space for one or more containers. Thus all of the containers in the same pod 
+# shares same IP address which is IP address of the pod. They can communicate 
+# with each other by using localhost address. Also, multiple containers can mount
+# same volumes from pod.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multicontainer-pod
+  labels:
+    name: multicontainer-pod
+spec:
+  containers:
+  - name: alpine1
+    image: alpine
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+      - mountPath: /data-rw
+        name: data
+  
+  - name: alpine2
+    image: alpine
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+      - mountPath: /data-ro
+        name: data
+        readOnly: true
+    
+  volumes:
+    - name: data
+    
+
+
+
