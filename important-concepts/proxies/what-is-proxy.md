@@ -18,14 +18,10 @@ responses from web servers.
 
 Why we are using reverse proxy? Some reasons are as below:
     
-    - Instead of giving service from only one server, multiple servers can be set up. 
-Reverse proxy intercepts the requests and distributes the load evenly in order to prevent
-overloading of servers.
+    - Instead of giving service from only one server, multiple servers can be set up. Reverse proxy intercepts the requests and distributes the load evenly in order to prevent overloading of servers.
 
-    - Due to reverse proxy, original servers don't need to reveal their IP addresses, so
-it increases protection from attacks.
+    - Due to reverse proxy, original servers don't need to reveal their IP addresses, so it increases protection from attacks.
 
-    - Reverse proxies can cache the responses and can provide faster responses for upcoming
-requests.
+    - Reverse proxies can cache the responses and can provide faster responses for upcoming requests.
 
     - SSL encryption can be done in one place thanks to reverse proxies. 
