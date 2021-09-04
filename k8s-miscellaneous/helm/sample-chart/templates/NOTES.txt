@@ -1,0 +1,1 @@
+{{ .Chart.Name }} is a chart for practicing
