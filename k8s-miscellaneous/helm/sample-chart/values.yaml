@@ -2,3 +2,8 @@ favorite:
   drink: beer
   food: kebap
   dessert: baklava
+hobbies:
+  - playingGuitar
+  - swimming
+  - reading
+  - running
