@@ -51,4 +51,15 @@ data:
   # In this case we're providing top level scope ".", otherwise we
   # won't be able to see version number
 {{- include "labels" . | indent 2 }}
+
+  # We even can insert content from other files
+  {{- $files_scope := .Files }}
+  {{- range tuple "config1.toml" "config2.toml" "config3.toml"}}
+  {{ . }}: 
+    {{ $files_scope.Get . }}
+  {{- end }}
+
+  # We can get a file's content as a config or secret
+{{ (.Files.Glob "moreConfig").AsConfig | indent 2 }}
+
     
