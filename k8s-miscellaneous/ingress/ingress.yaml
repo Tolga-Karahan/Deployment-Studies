@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: foobar
+  labels:
+    example: ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: foobar.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: foobar-v2
+          servicePort: 80
+      - path: /v1
+        backend:
+          serviceName: foobar-v1
+          servicePort: 80
+      - path: /v2
+        backend:
+          serviceName: foobar-v2
+          servicePort: 80
+
+# When we deploy the Ingress above it won't work. Because domain name isn't
+# exists. Web requests look up IP addresses for a domain name from public DNS
+# services, but also there is a local hosts file. By registering to local hosts
+# file we can run this Ingress in local. 
+
+# In this example we're creating fake urls with paths. There is no content in
+# http://foobar.local/foovar-v1. Proxy actually rewrites the url to match the 
+# real URL in the service. This can't be done in ingress spec, so it uses a
+# feature of the ingress controller thanks to annotations.
+
+# Configuration in the Ingress object applies to all of its rules, so if we want
+# to apply different features to different rules then we can define different Ingress
+# objects. For example there might be a need for forwarding request to same pod all
+# the time. In that scenario sticky sessions can be used, but different proxies 
+# require different configurations and also they have different features. 
+
+# By using Ingress controller we can move TLS certificate management away from 
+# applications and instead we can configure it in Ingress.
